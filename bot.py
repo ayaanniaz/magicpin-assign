@@ -239,7 +239,7 @@ async def tick(body: TickBody):
             "suppression_key": suppression_key,
             "rationale": rationale,
         }
-        actions.append(action)
+        actions.append({"action": "send_message", "payload": action})
 
     return {"actions": actions}
 

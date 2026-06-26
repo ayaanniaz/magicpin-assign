@@ -131,10 +131,15 @@ class TickBody(BaseModel):
 
 @app.post("/v1/tick")
 async def tick(body: TickBody):
+    start_time = time.time()
     actions = []
     now_str = body.now
 
     for trg_id in body.available_triggers:
+        # Prevent 30s timeout by exiting early if time is running out
+        if time.time() - start_time > 25.0:
+            break
+
         # Respect action cap
         if len(actions) >= 20:
             break

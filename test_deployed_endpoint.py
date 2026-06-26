@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 # --- CONFIGURATION ---
 # Replace this with your actual deployed URL (e.g., "https://your-bot.onrender.com")
 # If testing locally, leave it as "http://localhost:8080"
-BASE_URL = "http://localhost:8080"
+BASE_URL = "https://magicpin-assign.onrender.com"
 # ---------------------
 
 

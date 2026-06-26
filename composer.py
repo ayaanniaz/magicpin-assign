@@ -86,25 +86,25 @@ def _llm(prompt: str, system: str) -> str:
     )
 
     last_err = None
-    retry_delays = [5, 10, 20, 40, 60]  # seconds between retries (5 attempts per model)
+    retry_delays = [1, 2, 4]  # Fast retries to respect 30s timeout (3 attempts per model)
 
     for model in (_MODEL_NAME, _MODEL_FALLBACK):
-        for attempt in range(5):
+        for attempt in range(3):
             try:
                 result = _call(model)
                 if attempt > 0:
-                    print(f"[Vera] {model} succeeded on attempt {attempt + 1}/5")
+                    print(f"[Vera] {model} succeeded on attempt {attempt + 1}/3")
                 return result
             except Exception as e:
                 last_err = e
                 err_str = str(e).lower()
                 is_transient = any(t in err_str for t in _TRANSIENT)
-                wait = retry_delays[attempt]  # 5s, 10s, 20s, 40s, 60s
+                wait = retry_delays[attempt]
                 print(
-                    f"[Vera] {model} attempt {attempt + 1}/5 failed"
+                    f"[Vera] {model} attempt {attempt + 1}/3 failed"
                     f"{' [transient]' if is_transient else ' [hard]'}: {e}"
                 )
-                if is_transient and attempt < 4:
+                if is_transient and attempt < 2:
                     print(f"[Vera] Waiting {wait}s before retry …")
                     _time.sleep(wait)
                     continue

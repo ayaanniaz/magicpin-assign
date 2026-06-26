@@ -80,7 +80,7 @@ async def metadata():
             "are selected per merchant state. Temperature=0 for determinism. "
             "Auto-reply detection, intent-transition routing, and graceful exit included."
         ),
-        "contact_email": "ayaanniaz.bandey@gmail.com",
+        "contact_email": "ayaanniaz777@gmail.com",
         "version": "1.0.0",
         "submitted_at": datetime.now(timezone.utc).isoformat(),
     }
